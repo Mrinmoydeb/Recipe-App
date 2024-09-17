@@ -5,7 +5,7 @@ const recipe_title = document.querySelector('.recipe-title');
 const grid_box = document.querySelector('.grids');
 
 
-const fetchRecipes = async (val) => {
+const fetchRecipes = async (val, div) => {
   try {
     recipe_title.textContent = "Fetching recipes..."
     const data = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${val}`);
@@ -36,12 +36,17 @@ const fetchRecipes = async (val) => {
 
 
   } catch (error) {
-    console.log('Error fetching data:', error)
+    recipe_title.textContent = "Error in Fetching recipes..."
   }
 }
 
 serch_button.onclick = (e) => {
   e.preventDefault()
   let inputVal = serch_box.value.trim()
-  fetchRecipes(inputVal)
+  if(!inputVal){
+    recipe_title.textContent= "Type the meal you want";
+    return;
+  }
+  fetchRecipes(inputVal, ()=>{})
+
 }
